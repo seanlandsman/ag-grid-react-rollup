@@ -1,11 +1,11 @@
 const postcss = require('rollup-plugin-postcss');
-const babel = require('@rollup/plugin-babel');
 const nodeResolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
 const replace = require('@rollup/plugin-replace');
+const typescript = require('@rollup/plugin-typescript');
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.tsx',
   output: [
     {
       file: 'dist/index.js',
@@ -26,10 +26,7 @@ export default {
         'node_modules/**',
       ]
     }),
-    babel({
-      // babelrc: false,
-      presets: [['@babel/preset-env', { modules: false }], '@babel/preset-react']
-    }),
+    typescript({ tsconfig: './tsconfig.json' }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
